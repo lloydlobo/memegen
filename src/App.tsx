@@ -18,10 +18,7 @@ const App = () => {
     setImage(URL.createObjectURL(file)) // Create object URL for image preview
   }
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: "image/*",
-    onDrop,
-  })
+  const { getRootProps, getInputProps } = useDropzone({ accept: "image/*", onDrop })
 
   const downloadMeme = () => {
     const memeElement = document.querySelector(".meme")
@@ -51,64 +48,68 @@ const App = () => {
       </div>
 
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-        {image && (
-          <Meme
-            image={image}
-            topText={topText}
-            bottomText={bottomText}
-            topFontSize={topFontSize}
-            bottomFontSize={bottomFontSize}
-          />
-        )}
+        {image && <Meme image={image} topText={topText} bottomText={bottomText} topFontSize={topFontSize} bottomFontSize={bottomFontSize} />}
 
         {/* Controls */}
-        <div className="w-full max-w-sm">
+        <div className="xs:max-w-sm w-full max-w-md">
           {/* Text Inputs */}
           <div className="mb-6 flex flex-col gap-3">
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="Top text"
-                value={topText}
-                onChange={(e) => setTopText(e.target.value)}
-                className="w-full rounded border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
-              />
-
-              <label htmlFor="topFontSize">
-                <input
-                  id="topFontSize"
-                  name="topFontSize"
-                  type="number"
-                  value={topFontSize}
-                  onChange={(ev) => setTopFontSize(Number(ev.target.value))}
-                  min={10}
-                  max={72}
-                  className="w-32 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
+            {/* Top */}
+            <div className="space-y-1">
+              <label htmlFor="topText" className="sr-only text-base font-medium text-gray-600">
+                Top text
               </label>
+              <div className="flex w-full items-center gap-2 rounded-lg border border-gray-300 p-2 transition focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 hover:border-gray-400">
+                <input
+                  id="topText"
+                  type="text"
+                  placeholder="Top text"
+                  value={topText}
+                  onChange={(e) => setTopText(e.target.value)}
+                  className="flex-1 bg-transparent px-2 py-1 text-base outline-none"
+                />
+
+                <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 ring-inset">
+                  <input
+                    type="number"
+                    min={10}
+                    max={72}
+                    value={topFontSize}
+                    onChange={(ev) => setTopFontSize(Number(ev.target.value))}
+                    className="w-12 bg-transparent text-right text-sm text-gray-700 outline-none"
+                  />
+                  <span className="text-xs text-gray-500">px</span>
+                </div>
+              </div>
             </div>
 
-            <div className="flex">
-              <input
-                type="text"
-                placeholder="Bottom text"
-                value={bottomText}
-                onChange={(e) => setBottomText(e.target.value)}
-                className="w-full rounded border-gray-300 p-2 focus:border-sky-500 focus:outline-none"
-              />
-
-              <label htmlFor="bottomFontSize">
-                <input
-                  id="bottomFontSize"
-                  name="bottomFontSize"
-                  type="number"
-                  value={bottomFontSize}
-                  onChange={(ev) => setBottomFontSize(Number(ev.target.value))}
-                  min={10}
-                  max={72}
-                  className="w-32 rounded-lg border px-3 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-                />
+            {/* Bottom */}
+            <div className="space-y-1">
+              <label htmlFor="bottomText" className="sr-only text-base font-medium text-gray-600">
+                Bottom text
               </label>
+              <div className="flex w-full items-center gap-2 rounded-lg border border-gray-300 p-2 transition focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 hover:border-gray-400">
+                <input
+                  id="bottomText"
+                  type="text"
+                  placeholder="Bottom text"
+                  value={bottomText}
+                  onChange={(e) => setBottomText(e.target.value)}
+                  className="flex-1 bg-transparent px-2 py-1 text-base outline-none"
+                />
+
+                <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 ring-inset">
+                  <input
+                    type="number"
+                    min={10}
+                    max={72}
+                    value={bottomFontSize}
+                    onChange={(ev) => setBottomFontSize(Number(ev.target.value))}
+                    className="w-12 bg-transparent text-right text-sm text-gray-700 outline-none"
+                  />
+                  <span className="text-xs text-gray-500">px</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -118,7 +119,7 @@ const App = () => {
               <button
                 onClick={downloadMeme}
                 disabled={!isReadyToDownload}
-                className="mt-6 rounded bg-sky-700 px-6 py-3 text-white transition hover:bg-sky-800 disabled:cursor-not-allowed disabled:bg-gray-400 sm:px-8 sm:py-3"
+                className="focus-ring-offset-2 mt-6 rounded bg-sky-600 px-6 py-3 text-white transition hover:bg-sky-800 focus:ring-2 focus:ring-sky-500 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-400 sm:px-8 sm:py-3"
               >
                 Generate Meme
               </button>
