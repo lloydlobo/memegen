@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+:root {
+  --bg-dark: #070d0a;
+  --bg-light: #0e1a13;
+  --accent: #38bdf8;
+}
+
+html,
+body {
+  background: linear-gradient(0deg, var(--bg-dark), var(--bg-light));
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;

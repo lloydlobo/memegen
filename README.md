@@ -1,6 +1,6 @@
 # meme-generator
 
-![localhost-preview](public/localhost_5173_.png)
+![localhost-preview](public/localhost_5173_02.png)
 
 ## React + TypeScript + Vite
 
@@ -77,3 +77,7 @@ export default defineConfig([
   },
 ])
 ```
+
+## Previously
+
+![localhost-preview](public/localhost_5173_01.png)

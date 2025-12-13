@@ -37,7 +37,6 @@ const App = () => {
   return (
     <div className="mx-auto max-w-5xl p-0 text-center font-sans">
       <h1 className="mb-6 text-3xl font-bold">memegene</h1>
-
       {/* Upload */}
       <div
         {...getRootProps()}
@@ -46,7 +45,6 @@ const App = () => {
         <input {...getInputProps()} />
         <p>Drag & drop an image here, or click to select a file</p>
       </div>
-
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
         {image && <Meme image={image} topText={topText} bottomText={bottomText} topFontSize={topFontSize} bottomFontSize={bottomFontSize} />}
 
@@ -127,8 +125,18 @@ const App = () => {
           )}
         </div>
       </div>
+
+      <footer className="mt-10 py-4 text-sm text-gray-500">
+        <span>© {new Date().getFullYear()} Memegene. All rights reserved.</span>
+      </footer>
     </div>
   )
 }
 
 export default App
+
+//   <footer className="mx-auto w-full">
+//     <div className="px-2 py-2">
+//       <span>Unlicensed</span>
+//     </div>
+//   </footer>
