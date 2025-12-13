@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,36 +7,36 @@
   text-align: center;
 }
 
-.App {
+/* .App {
   text-align: center;
   font-family: "Arial", sans-serif;
-}
+} */
 
-.upload-area {
+/* .upload-area {
   border: 2px dashed #ccc;
   padding: 20px;
   margin: 20px;
   cursor: pointer;
-}
+} */
 
-.input-area input {
+/* .input-area input {
   margin: 5px;
   padding: 10px;
   width: 200px;
   font-size: 16px;
-}
+} */
 
-h1 {
+/* h1 {
   font-family: "Arial", sans-serif;
   color: #333;
-}
+} */
 
-.controls {
+/* .controls {
   margin: 20px auto;
   max-width: 500px;
-}
+} */
 
-.input-area {
+/* .input-area {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -47,16 +49,16 @@ h1 {
     font-size: 16px;
     box-sizing: border-box;
   }
-}
+} */
 
-.font-size-control {
+/* .font-size-control {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-}
+} */
 
-button {
+/* button {
   margin-top: 20px;
   padding: 12px 24px;
   font-size: 16px;
@@ -74,9 +76,9 @@ button {
   &:hover:not(:disabled) {
     background: #555;
   }
-}
+} */
 
-input[type="range"] {
+/* input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   width: 200px;
@@ -85,9 +87,9 @@ input[type="range"] {
   border-radius: 3px;
   outline: none;
   margin: 10px;
-}
+} */
 
-input[type="range"]::-webkit-slider-thumb {
+/* input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 20px;
@@ -96,13 +98,13 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.2s;
-}
+} */
 
-input[type="range"]::-webkit-slider-thumb:hover {
+/* input[type="range"]::-webkit-slider-thumb:hover {
   background: #555;
-}
+} */
 
-input[type="range"]::-moz-range-thumb {
+/* input[type="range"]::-moz-range-thumb {
   width: 20px;
   height: 20px;
   background: #333;
@@ -110,13 +112,13 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   border: none;
   transition: background 0.2s;
-}
+} */
 
-input[type="range"]::-moz-range-thumb:hover {
+/* input[type="range"]::-moz-range-thumb:hover {
   background: #555;
-}
+} */
 
-label[for="fontSize"] {
+/* label[for="fontSize"] {
   font-weight: bold;
   color: #333;
-}
+} */
