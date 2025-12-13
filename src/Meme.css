@@ -1,0 +1,29 @@
+.meme {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.meme-image {
+  width: 500px;
+  height: auto;
+  object-fit: contain;
+}
+
+.top-text,
+.bottom-text {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  color: white;
+}
+
+.top-text {
+  top: 20px;
+}
+
+.bottom-text {
+  bottom: 20px;
+}
