@@ -8,8 +8,8 @@ import Meme from "./Meme"
 
 const App = () => {
   const [image, setImage] = useState(null)
-  const [topFontSize, setTopFontSize] = useState(32) // px
-  const [bottomFontSize, setBottomFontSize] = useState(32) // px
+  const [topFontSize, setTopFontSize] = useState(20) // px
+  const [bottomFontSize, setBottomFontSize] = useState(20) // px
   const [topText, setTopText] = useState("")
   const [bottomText, setBottomText] = useState("")
 
@@ -21,7 +21,7 @@ const App = () => {
   const { getRootProps, getInputProps } = useDropzone({ accept: "image/*", onDrop })
 
   const downloadMeme = () => {
-    const memeElement = document.querySelector(".meme")
+    const memeElement = document.querySelector("#meme")
     if (memeElement) {
       html2canvas(memeElement, { useCORS: true }).then((canvas) => {
         const link = document.createElement("a")
@@ -35,7 +35,7 @@ const App = () => {
   const isReadyToDownload = image && (topText || bottomText)
 
   return (
-    <div className="mx-auto max-w-5xl p-0 text-center font-sans">
+    <div className={`mx-auto ${true ? "max-w-8xl" : "max-w-5xl"} p-0 text-center font-sans`}>
       <h1 className="mb-6 text-3xl font-bold">memegene</h1>
       {/* Upload */}
       <div
@@ -45,8 +45,17 @@ const App = () => {
         <input {...getInputProps()} />
         <p>Drag & drop an image here, or click to select a file</p>
       </div>
+
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-        {image && <Meme image={image} topText={topText} bottomText={bottomText} topFontSize={topFontSize} bottomFontSize={bottomFontSize} />}
+        {image && (
+          <Meme
+            image={image}
+            topText={topText}
+            bottomText={bottomText}
+            topFontSize={topFontSize}
+            bottomFontSize={bottomFontSize}
+          />
+        )}
 
         {/* Controls */}
         <div className="xs:max-w-sm w-full max-w-md">
@@ -134,9 +143,3 @@ const App = () => {
 }
 
 export default App
-
-//   <footer className="mx-auto w-full">
-//     <div className="px-2 py-2">
-//       <span>Unlicensed</span>
-//     </div>
-//   </footer>
