@@ -3,17 +3,18 @@ import React, { useState } from "react"
 import html2canvas from "html2canvas"
 import { useDropzone } from "react-dropzone"
 
-import "./App.css"
-import Meme from "./Meme"
+import "@/App.css"
+import Meme from "@/Meme.tsx"
+import "@/styles/globals.css"
 
 const App = () => {
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState<string | null>(null)
   const [topFontSize, setTopFontSize] = useState(20) // px
   const [bottomFontSize, setBottomFontSize] = useState(20) // px
   const [topText, setTopText] = useState("")
   const [bottomText, setBottomText] = useState("")
 
-  const onDrop = (acceptedFiles) => {
+  const onDrop = (acceptedFiles: File[]) => {
     const file = acceptedFiles[0]
     setImage(URL.createObjectURL(file)) // Create object URL for image preview
   }
@@ -21,7 +22,7 @@ const App = () => {
   const { getRootProps, getInputProps } = useDropzone({ accept: "image/*", onDrop })
 
   const downloadMeme = () => {
-    const memeElement = document.querySelector("#meme")
+    const memeElement = document.querySelector("#meme") as HTMLDivElement
     if (memeElement) {
       html2canvas(memeElement, { useCORS: true }).then((canvas) => {
         const link = document.createElement("a")
@@ -36,14 +37,14 @@ const App = () => {
 
   return (
     <div className={`mx-auto ${true ? "max-w-8xl" : "max-w-5xl"} p-0 text-center font-sans`}>
-      <h1 className="mb-6 text-3xl font-bold">memegene</h1>
+      <h1 className="mb-6 text-3xl font-bold text-gray-300">memegene</h1>
       {/* Upload */}
       <div
         {...getRootProps()}
         className="mx-auto mb-6 cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-6 text-gray-600 transition hover:border-gray-400"
       >
         <input {...getInputProps()} />
-        <p>Drag & drop an image here, or click to select a file</p>
+        <p className="text-gray-300">Drag & drop an image here, or click to select a file</p>
       </div>
 
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
@@ -73,17 +74,17 @@ const App = () => {
                   placeholder="Top text"
                   value={topText}
                   onChange={(e) => setTopText(e.target.value)}
-                  className="flex-1 bg-transparent px-2 py-1 text-base outline-none"
+                  className="flex-1 bg-transparent px-2 py-1 text-base text-gray-300 outline-none placeholder:text-gray-400"
                 />
 
-                <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 ring-inset">
+                <div className="flex items-center gap-1 rounded-md px-2 py-1 ring-gray-200 ring-inset focus-within:ring-1">
                   <input
                     type="number"
                     min={10}
                     max={72}
                     value={topFontSize}
                     onChange={(ev) => setTopFontSize(Number(ev.target.value))}
-                    className="w-12 bg-transparent text-right text-sm text-gray-700 outline-none"
+                    className="w-12 bg-transparent text-right text-sm text-gray-400 outline-none"
                   />
                   <span className="text-xs text-gray-500">px</span>
                 </div>
@@ -102,17 +103,17 @@ const App = () => {
                   placeholder="Bottom text"
                   value={bottomText}
                   onChange={(e) => setBottomText(e.target.value)}
-                  className="flex-1 bg-transparent px-2 py-1 text-base outline-none"
+                  className="flex-1 bg-transparent px-2 py-1 text-base text-gray-300 outline-none placeholder:text-gray-400"
                 />
 
-                <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 ring-1 ring-gray-200 ring-inset">
+                <div className="flex items-center gap-1 rounded-md px-2 py-1 ring-gray-200 ring-inset focus-within:ring-1">
                   <input
                     type="number"
                     min={10}
                     max={72}
                     value={bottomFontSize}
                     onChange={(ev) => setBottomFontSize(Number(ev.target.value))}
-                    className="w-12 bg-transparent text-right text-sm text-gray-700 outline-none"
+                    className="w-12 bg-transparent text-right text-sm text-gray-400 outline-none"
                   />
                   <span className="text-xs text-gray-500">px</span>
                 </div>
