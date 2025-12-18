@@ -4,6 +4,7 @@ import html2canvas from "html2canvas"
 import { useDropzone } from "react-dropzone"
 
 import "@/App.css"
+import { cn } from "@/lib/utils"
 import Meme from "@/Meme.tsx"
 import "@/styles/globals.css"
 
@@ -36,7 +37,7 @@ const App = () => {
   const isReadyToDownload = image && (topText || bottomText)
 
   return (
-    <div className={`mx-auto ${true ? "max-w-8xl" : "max-w-5xl"} p-0 text-center font-sans`}>
+    <div className={`mx-auto ${cn("max-w-8xl", "max-w-5xl")} p-0 text-center font-sans`}>
       <h1 className="mb-6 text-3xl font-bold text-gray-300">memegene</h1>
       {/* Upload */}
       <div

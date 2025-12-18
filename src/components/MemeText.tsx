@@ -1,5 +1,7 @@
 import React from "react"
 
+import { cn } from "@/lib/utils.ts"
+
 const MEME_CONFIG = {
   textTopPadding: "top-5",
   textBottomPadding: "bottom-5",
@@ -30,9 +32,9 @@ type MemeTextProps = {
 }
 
 export const MemeText = ({ text, fontSize, position }: MemeTextProps) => {
-  const positionClass = position === "top" ? MEME_CONFIG.textTopPadding : MEME_CONFIG.textBottomPadding
+  const className = cn(textBaseFixed, position === "top" ? MEME_CONFIG.textTopPadding : MEME_CONFIG.textBottomPadding)
   return (
-    <div className={`${textBaseFixed} ${positionClass}`} style={{ fontSize: clampCss(fontSize) }}>
+    <div className={className} style={{ fontSize: clampCss(fontSize) }}>
       {text}
     </div>
   )
