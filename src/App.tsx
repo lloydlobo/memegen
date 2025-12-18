@@ -1,26 +1,46 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import html2canvas from "html2canvas"
 import { useDropzone } from "react-dropzone"
 
 import "@/App.css"
-import { cn } from "@/lib/utils"
-import Meme from "@/Meme.tsx"
 import "@/styles/globals.css"
 
+import { cn } from "@/lib/utils.ts"
+import Meme from "@/Meme.tsx"
+import { TextInput } from "@/components/TextInput.tsx"
+
+type MemeState = {
+  image: string | null
+  topText: string
+  bottomText: string
+  topFontSize: number
+  bottomFontSize: number
+}
+
 const App = () => {
-  const [image, setImage] = useState<string | null>(null)
-  const [topFontSize, setTopFontSize] = useState(20) // px
-  const [bottomFontSize, setBottomFontSize] = useState(20) // px
-  const [topText, setTopText] = useState("")
-  const [bottomText, setBottomText] = useState("")
+  const [memeState, setMemeState] = useState<MemeState>({
+    image: null,
+    topFontSize: 20,
+    bottomFontSize: 20,
+    topText: "",
+    bottomText: "",
+  })
+
+  const updateMeme = (
+    patch: Partial<MemeState> //
+  ) => setMemeState((memeState) => ({ ...memeState, ...patch }))
 
   const onDrop = (acceptedFiles: File[]) => {
+    if (!acceptedFiles.length) return
     const file = acceptedFiles[0]
-    setImage(URL.createObjectURL(file)) // Create object URL for image preview
+    updateMeme({ image: URL.createObjectURL(file) }) // create object URL for image preview
   }
 
-  const { getRootProps, getInputProps } = useDropzone({ accept: "image/*", onDrop })
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { "image/*": [] },
+    onDrop: onDrop,
+  })
 
   const downloadMeme = () => {
     const memeElement = document.querySelector("#meme") as HTMLDivElement
@@ -34,10 +54,19 @@ const App = () => {
     }
   }
 
-  const isReadyToDownload = image && (topText || bottomText)
+  const isReadyToDownload = memeState.image && (memeState.topText || memeState.bottomText)
+
+  useEffect(() => {
+    const currentImage = memeState.image // avoid memory leak on unclosed URL.createObjectURL
+    return () => {
+      if (currentImage) {
+        URL.revokeObjectURL(currentImage) // revoke the previous URL, not the current one
+      }
+    }
+  }, [memeState.image])
 
   return (
-    <div className={`mx-auto ${cn("max-w-8xl", "max-w-5xl")} p-0 text-center font-sans`}>
+    <div className={`mx-auto ${cn(!true ? "max-w-8xl" : "max-w-5xl")} p-0 text-center font-sans`}>
       <h1 className="mb-6 text-3xl font-bold text-gray-300">memegene</h1>
       {/* Upload */}
       <div
@@ -49,81 +78,40 @@ const App = () => {
       </div>
 
       <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
-        {image && (
+        {memeState.image && (
           <Meme
-            image={image}
-            topText={topText}
-            bottomText={bottomText}
-            topFontSize={topFontSize}
-            bottomFontSize={bottomFontSize}
+            image={memeState.image}
+            topText={memeState.topText}
+            bottomText={memeState.bottomText}
+            topFontSize={memeState.topFontSize}
+            bottomFontSize={memeState.bottomFontSize}
           />
         )}
 
-        {/* Controls */}
         <div className="xs:max-w-sm w-full max-w-md">
-          {/* Text Inputs */}
+          {/* Controls */}
           <div className="mb-6 flex flex-col gap-3">
-            {/* Top */}
-            <div className="space-y-1">
-              <label htmlFor="topText" className="sr-only text-base font-medium text-gray-600">
-                Top text
-              </label>
-              <div className="flex w-full items-center gap-2 rounded-lg border border-gray-300 p-2 transition focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 hover:border-gray-400">
-                <input
-                  id="topText"
-                  type="text"
-                  placeholder="Top text"
-                  value={topText}
-                  onChange={(e) => setTopText(e.target.value)}
-                  className="flex-1 bg-transparent px-2 py-1 text-base text-gray-300 outline-none placeholder:text-gray-400"
-                />
+            <TextInput
+              id="topText"
+              placeholder="Top text"
+              value={memeState.topText}
+              fontSize={memeState.topFontSize}
+              onTextChange={(text) => updateMeme({ topText: text })}
+              onFontSizeChange={(size) => updateMeme({ topFontSize: size })}
+            />
 
-                <div className="flex items-center gap-1 rounded-md px-2 py-1 ring-gray-200 ring-inset focus-within:ring-1">
-                  <input
-                    type="number"
-                    min={10}
-                    max={72}
-                    value={topFontSize}
-                    onChange={(ev) => setTopFontSize(Number(ev.target.value))}
-                    className="w-12 bg-transparent text-right text-sm text-gray-400 outline-none"
-                  />
-                  <span className="text-xs text-gray-500">px</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom */}
-            <div className="space-y-1">
-              <label htmlFor="bottomText" className="sr-only text-base font-medium text-gray-600">
-                Bottom text
-              </label>
-              <div className="flex w-full items-center gap-2 rounded-lg border border-gray-300 p-2 transition focus-within:border-sky-500 focus-within:ring-1 focus-within:ring-sky-500 hover:border-gray-400">
-                <input
-                  id="bottomText"
-                  type="text"
-                  placeholder="Bottom text"
-                  value={bottomText}
-                  onChange={(e) => setBottomText(e.target.value)}
-                  className="flex-1 bg-transparent px-2 py-1 text-base text-gray-300 outline-none placeholder:text-gray-400"
-                />
-
-                <div className="flex items-center gap-1 rounded-md px-2 py-1 ring-gray-200 ring-inset focus-within:ring-1">
-                  <input
-                    type="number"
-                    min={10}
-                    max={72}
-                    value={bottomFontSize}
-                    onChange={(ev) => setBottomFontSize(Number(ev.target.value))}
-                    className="w-12 bg-transparent text-right text-sm text-gray-400 outline-none"
-                  />
-                  <span className="text-xs text-gray-500">px</span>
-                </div>
-              </div>
-            </div>
+            <TextInput
+              id="bottomText"
+              placeholder="Bottom text"
+              value={memeState.bottomText}
+              fontSize={memeState.bottomFontSize}
+              onTextChange={(text) => updateMeme({ bottomText: text })}
+              onFontSizeChange={(size) => updateMeme({ bottomFontSize: size })}
+            />
           </div>
 
           {/* Download */}
-          {image && (
+          {memeState.image && (
             <div>
               <button
                 onClick={downloadMeme}
