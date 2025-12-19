@@ -7,14 +7,7 @@ type TextInputProps = {
   onFontSizeChange: (size: number) => void
 }
 
-export const TextInput = ({
-  id,
-  placeholder,
-  value,
-  fontSize,
-  onTextChange,
-  onFontSizeChange, //
-}: TextInputProps) => {
+export const TextInput = ({ id, placeholder, value, fontSize, onTextChange, onFontSizeChange }: TextInputProps) => {
   return (
     <div className="space-y-1">
       <label htmlFor={id} className="sr-only">
