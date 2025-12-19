@@ -1,6 +1,7 @@
 // html2canvas captures the entire #meme container, which includes:
 // 1. The image (#meme-image)
 // 2. The absolutely positioned text overlays (#meme-top-text, #meme-bottom-text)
+// @ts-ignore TS6133
 import React from "react"
 
 import { MemeText } from "@/components/MemeText.tsx"

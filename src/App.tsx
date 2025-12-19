@@ -1,3 +1,4 @@
+// @ts-ignore TS6133
 import React, { useEffect, useState } from "react"
 
 import html2canvas from "html2canvas"
