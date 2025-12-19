@@ -1,6 +1,6 @@
 # meme-generator
 
-![localhost-preview](public/localhost_5173_02.png)
+![fullsize-screenshot](public/lloydlobo.github.io_memegen_03.png)
 
 ## React + TypeScript + Vite
 
@@ -81,3 +81,4 @@ export default defineConfig([
 ## Previously
 
 ![localhost-preview](public/localhost_5173_01.png)
+![localhost-preview](public/localhost_5173_02.png)
